@@ -51,3 +51,11 @@ class AlunoList(Resource):
         """Creates a new Aluno"""
         data = request.json
         save_new_aluno(data=data)
+
+@api.route('/<matricula>')
+class Instrutor(Resource):
+    @api.doc('Mostra um aluno')
+    @api.marshal_with(_aluno)
+    def get(self, matricula):
+        """Show one aluno by its matricula"""
+        return get_a_aluno(matricula)

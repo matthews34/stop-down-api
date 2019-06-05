@@ -28,5 +28,5 @@ def get_all_alunos():
     return Aluno.query.all()
 
 
-def get_a_aluno(id):
-    return Aluno.query.filter_by(id=id).first()
+def get_a_aluno(matricula):
+    return Aluno.query.filter_by(matricula=matricula).first()
