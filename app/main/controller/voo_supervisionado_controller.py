@@ -15,7 +15,7 @@ from flask import request
 from flask_restplus import Resource, Namespace, fields
 
 # importar métodos de Funcionario em funcionario_service
-from ..service.voo_supervisionado_service import save_new_voo_supervisionado, get_all_voos_supervisionados, get_a_voo_supervisionado
+from ..service.voo_supervisionado_service import save_new_voo_supervisionado, get_all_voos_supervisionados, get_a_voo_supervisionado, get_all_voos_supervisionados_by_matricula
 
 class Voo_supervisionadoDto:
     api = Namespace('voo_supervisionado', description='operacoes relacionadas a voos supervisionados')
@@ -25,7 +25,8 @@ class Voo_supervisionadoDto:
         'parecer_nota': fields.Integer,
         'data_hora_inicio': fields.DateTime,
         'data_hora_fim': fields.DateTime,
-        'matricula_da_aeronave': fields.String,
+        'horas_voadas': fields.Float,
+        'matricula_aeronave': fields.String,
         'origem': fields.String,
         'destino': fields.String,
         'matricula_aluno': fields.Integer,
@@ -36,7 +37,7 @@ api = Voo_supervisionadoDto.api
 _voo_supervisionado = Voo_supervisionadoDto.voo_supervisionado
 @api.route('/')
 class Voo_supervisionadoList(Resource):
-    @api.doc('Lista todos os voos_supervisionados registrados')
+    @api.doc('Lista todos os voos supervisionados registrados')
     @api.marshal_with(_voo_supervisionado)
     def get(self):
         """Lista todos os voos supervisionados registrados"""
@@ -49,3 +50,11 @@ class Voo_supervisionadoList(Resource):
         """Cria uma nova voo supervisionado"""
         data = request.json
         save_new_voo_supervisionado(data=data)
+
+@api.route('/<matricula_aluno>')
+class Voos_supervisionados_by_aluno(Resource):
+    @api.doc('Lista todos os voos supervisionados de um aluno')
+    @api.marshal_with(_voo_supervisionado)
+    def get(self, matricula_aluno):
+        """Lista todos os voos supervisionados de um aluno"""
+        return get_all_voos_supervisionados_by_matricula(matricula_aluno)

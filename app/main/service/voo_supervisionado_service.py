@@ -12,6 +12,7 @@ def save_new_voo_supervisionado(data):
         parecer_nota=data['parecer_nota'],
         data_hora_inicio=data['data_hora_inicio'],
         data_hora_fim=data['data_hora_fim'],
+        horas_voadas=data['horas_voadas'],
         matricula_aeronave=data['matricula_aeronave'],
         origem=data['origem'],
         destino=data['destino'],
@@ -29,3 +30,6 @@ def get_all_voos_supervisionados():
 
 def get_a_voo_supervisionado(id):
     return Voo_supervisionado.query.filter_by(id=id).first()
+
+def get_all_voos_supervisionados_by_matricula(matricula_aluno):
+    return Voo_supervisionado.query.filter_by(matricula_aluno=matricula_aluno).all()
