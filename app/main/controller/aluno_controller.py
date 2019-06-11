@@ -53,7 +53,7 @@ class AlunoList(Resource):
         save_new_aluno(data=data)
 
 @api.route('/<matricula>')
-class Instrutor(Resource):
+class Aluno(Resource):
     @api.doc('Mostra um aluno')
     @api.marshal_with(_aluno)
     def get(self, matricula):
